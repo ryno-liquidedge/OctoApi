@@ -23,6 +23,7 @@ class OctoApi extends \octoapi\core\com\intf\standard {
         if($options["username"]) self::$username = $options["username"];
         if($options["password"]) self::$password = $options["password"];
 //        if($options["password"]) self::$password = $options["password"];
+        //this is a test
     }
     //------------------------------------------------------------------------------------------------------------------
     public function get(): \octoapi\core\action\get_api {
