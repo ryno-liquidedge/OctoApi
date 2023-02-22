@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '7482dab2ffecd40f156184dbcd63aa6c' => $baseDir . '/src/octoapi.php',
+    'b37525a3ab52869bab139a877571aea0' => $baseDir . '/src/OctoApi.php',
 );

@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit8d62d891bfab3b0fdd400677de444c6e
 {
     public static $files = array (
-        '7482dab2ffecd40f156184dbcd63aa6c' => __DIR__ . '/../..',
+        'b37525a3ab52869bab139a877571aea0' => __DIR__ . '/../..' . '/src/OctoApi.php',
     );
 
     public static $prefixLengthsPsr4 = array (

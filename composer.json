@@ -1,5 +1,5 @@
 {
-    "name": "liquidedge/octoapi",
+    "name": "liquidedge-octo/octoapi",
     "description": "This API is composed of useful functionality to integrate with Octo services",
     "authors": [
         {
