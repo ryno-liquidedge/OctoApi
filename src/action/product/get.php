@@ -1,25 +1,21 @@
 <?php
 
-namespace octoapi\core\action;
-
+namespace octoapi\action\product;
 /**
- * @package octoapi\core\action
+ * @package octoapi\action\product
  * @author Ryno Van Zyl
  * @copyright Copyright Liquid Edge Solutions. All rights reserved.
- *
- * The DELETE method is used to delete a resource specified by its URI.
  */
-class delete_api extends \octoapi\core\com\intf\standard {
+class get extends \octoapi\core\com\intf\get {
     //------------------------------------------------------------------------------------------------------------------
     // construct
     //------------------------------------------------------------------------------------------------------------------
-    public function __construct() {
-        view("delete");
-
-        view(\OctoApi::$url);
-        view(\OctoApi::$username);
-        view(\OctoApi::$password);
+    public function get_product_list($options = []) {
+        return [];
     }
     //------------------------------------------------------------------------------------------------------------------
-
+    public function get_product_data_arr($options = []) {
+        return [];
+    }
+    //------------------------------------------------------------------------------------------------------------------
 }

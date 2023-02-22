@@ -4,9 +4,7 @@ include_once "core/core.php";
 
 class OctoApi extends \octoapi\core\com\intf\standard {
 
-    public static string $url;
-    public static string $username;
-    public static string $password;
+    protected static $config;
 
     //------------------------------------------------------------------------------------------------------------------
     // construct
@@ -19,26 +17,19 @@ class OctoApi extends \octoapi\core\com\intf\standard {
             "password" => "",
         ], $options);
 
-        if($options["url"]) self::$url = $options["url"];
-        if($options["username"]) self::$username = $options["username"];
-        if($options["password"]) self::$password = $options["password"];
-//        if($options["password"]) self::$password = $options["password"];
+        self::$config = \octoapi\core\com\config\config::init($options);
+
     }
     //------------------------------------------------------------------------------------------------------------------
-    public function get(): \octoapi\core\action\get_api {
-        return \octoapi\core\action\get_api::make();
+    /**
+     * @return array
+     */
+    public static function get_config(): array {
+        return self::$config;
     }
     //------------------------------------------------------------------------------------------------------------------
-    public function post(): \octoapi\core\action\post_api {
-        return \octoapi\core\action\post_api::make();
-    }
-    //------------------------------------------------------------------------------------------------------------------
-    public function put(): \octoapi\core\action\put_api {
-        return \octoapi\core\action\put_api::make();
-    }
-    //------------------------------------------------------------------------------------------------------------------
-    public function delete(): \octoapi\core\action\delete_api {
-        return \octoapi\core\action\delete_api::make();
+    public function product(): \octoapi\action\product\main {
+        return octoapi\action\product\main::make();
     }
     //------------------------------------------------------------------------------------------------------------------
 }
