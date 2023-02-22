@@ -1,0 +1,19 @@
+{
+    "name": "liquidedge/octoapi",
+    "description": "This API is composed of useful functionality to integrate with Octo services",
+    "authors": [
+        {
+            "name": "Liquid Edge"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "octoapi\\app\\": "src"
+        },
+        "files": [
+            "src/OctoApi.php"
+        ]
+    }
+}
