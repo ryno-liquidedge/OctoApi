@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'octoapi\\app\\' => array($baseDir . '/src'),
+    'octoapi\\' => array($baseDir . '/src'),
 );

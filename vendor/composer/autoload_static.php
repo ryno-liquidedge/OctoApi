@@ -13,12 +13,12 @@ class ComposerStaticInit8d62d891bfab3b0fdd400677de444c6e
     public static $prefixLengthsPsr4 = array (
         'o' => 
         array (
-            'octoapi\\app\\' => 12,
+            'octoapi\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'octoapi\\app\\' => 
+        'octoapi\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

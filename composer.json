@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "octoapi\\app\\": "src"
+            "octoapi\\": "src"
         },
         "files": [
             "src/OctoApi.php"

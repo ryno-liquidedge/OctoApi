@@ -3,4 +3,11 @@
 
 require_once '../vendor/autoload.php';
 
-$class = new \octoapi\app\OctoApi();
+OctoApi::$url = "https://thisisoctourl";
+OctoApi::$username = "username";
+OctoApi::$password = "password";
+
+$get = OctoApi::make()->get();
+$put = OctoApi::make()->put();
+$post = OctoApi::make()->post();
+$delete = OctoApi::make()->delete();
