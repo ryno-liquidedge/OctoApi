@@ -6,9 +6,14 @@ namespace octoapi\core\com\octo;
 class service extends \octoapi\core\com\intf\standard {
 
     /**
-     * @var array
+     * @var \octoapi\core\com\config\config
      */
 	protected $config;
+
+    /**
+     * @var api_options
+     */
+	protected $options;
 
 	protected $action;
 
@@ -44,64 +49,44 @@ class service extends \octoapi\core\com\intf\standard {
 	//--------------------------------------------------------------------------
     protected function __construct($options = []) {
 
-        $this->set_config(\OctoApi::get_config());
+        $options = array_merge([
+            "config" => false
+        ], $options);
 
+        if($options["config"])
+            $this->set_config($options["config"]);
+
+    }
+    //--------------------------------------------------------------------------
+
+    /**
+     * @param $options
+     * @return $this
+     */
+    public function set_options($options): service {
+        if($options){
+            $this->options = $options;
+            $this->set_action($this->options->get_action());
+        }
+        return $this;
     }
     //--------------------------------------------------------------------------
     public function set_config($config) {
         $this->config = $config;
-        $this->set_baseurl($config["url"]);
-        $this->set_password($config["password"]);
-        $this->set_username($config["username"]);
+        $this->set_baseurl($this->config->get_url());
+        $this->set_password($this->config->get_password());
+        $this->set_username($this->config->get_username());
     }
     //--------------------------------------------------------------------------
+
     /**
-     * @param mixed $action
+     * @param $action
+     * @return $this
      */
-    public function set_action($action): void {
+    public function set_action($action): service {
         $this->action = $action;
+        return $this;
     }
-    //--------------------------------------------------------------------------
-	public function extract_from_arr($arr, $key, $options = []){
-		return \octoapi\core\com\arr\arr::extract_from_arr($arr, $key, $options);
-	}
-	//--------------------------------------------------------------------------
-	public function get_response($key = false, $options = []) {
-
-		$options = array_merge([
-		    "default" => []
-		], $options);
-
-		if(!$this->response) return $options["default"];
-
-		if(!$key) return $this->response;
-		else return $this->extract_from_arr($this->response, $key, $options);
-
-	}
-	//--------------------------------------------------------------------------
-	public function get_response_body() {
-		return $this->get_response("body");
-	}
-	//--------------------------------------------------------------------------
-	public function get_response_meta() {
-		return $this->extract_from_arr($this->get_response_body(), "meta");
-	}
-	//--------------------------------------------------------------------------
-	public function get_response_code() {
-		return $this->extract_from_arr($this->get_response_body(), "code");
-	}
-	//--------------------------------------------------------------------------
-	public function get_response_message() {
-		$mixed = $this->extract_from_arr($this->get_response_body(), "message", ["default" => null]);
-
-		if(is_array($mixed)) $mixed = json_encode($mixed);
-
-		return $mixed;
-	}
-	//--------------------------------------------------------------------------
-	public function get_response_data() {
-		return $this->extract_from_arr($this->get_response_body(), "data");
-	}
 	//--------------------------------------------------------------------------
 	/**
 	 * @param string $method
@@ -131,22 +116,24 @@ class service extends \octoapi\core\com\intf\standard {
 		$this->baseurl = $baseurl;
 	}
 	//--------------------------------------------------------------------------
+
     /**
      * @param array $options
-     * @return array|bool|string
+     * @return \com\intf\standard|response
      * @throws \Exception
      */
 	public function call($options = []) {
 
+	    $options = array_merge([
 
-	    $config = \OctoApi::get_config();
+	    ], $options, $this->options->get_options());
 
-		if (!$config["url"]) throw new \Exception("Service base URL cannot be empty");
-		if (!$config["username"]) throw new \Exception("Service username cannot be empty");
-		if (!$config["password"]) throw new \Exception("Service password cannot be empty");
+		if (!$this->baseurl) throw new \Exception("Service base URL cannot be empty");
+		if (!$this->username) throw new \Exception("Service username cannot be empty");
+		if (!$this->password) throw new \Exception("Service password cannot be empty");
 
-		$separator = substr($config["url"], (strlen($config["url"]) - 1), strlen($config["url"])) == "/" ? "" : "/";
-		$url = "{$config["url"]}{$separator}{$this->action}";
+		$separator = substr($this->baseurl, (strlen($this->baseurl) - 1), strlen($this->baseurl)) == "/" ? "" : "/";
+		$url = "{$this->baseurl}{$separator}{$this->action}";
 		$this->response = \octoapi\core\com\rest\rest::call($this->method, $url, $options, [
 			"username" => $this->username,
 			"password" => $this->password,
@@ -160,7 +147,7 @@ class service extends \octoapi\core\com\intf\standard {
 			"data" => $this->get_response_data(),
 		]);
 
-		return $this->response;
+		return \octoapi\core\com\octo\response::make($this->response);
 	}
 	//--------------------------------------------------------------------------
 	public function print_debug($item_arr = []) {

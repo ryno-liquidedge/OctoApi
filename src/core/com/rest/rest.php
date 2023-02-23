@@ -121,7 +121,7 @@ class rest extends \octoapi\core\com\intf\standard {
     }
     //--------------------------------------------------------------------------------
 	public static function parse_cookies($cookie_arr) {
-		$cookie_arr = \octoapi\core\com\arr\arr::splat($cookie_arr);
+		$cookie_arr = \octoapi\core\com\arr\action::splat($cookie_arr);
 		$parsed_cookie_arr = [];
 		foreach ($cookie_arr as $cookie_item) {
 			// do we have a value

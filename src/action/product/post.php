@@ -8,6 +8,9 @@ namespace octoapi\action\product;
  * @copyright Copyright Liquid Edge Solutions. All rights reserved.
  */
 class post extends \octoapi\core\com\intf\post {
+
+    use \octoapi\core\com\tra\action;
+
     //------------------------------------------------------------------------------------------------------------------
     // construct
     //------------------------------------------------------------------------------------------------------------------

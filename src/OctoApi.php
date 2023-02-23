@@ -17,14 +17,23 @@ class OctoApi extends \octoapi\core\com\intf\standard {
             "password" => "",
         ], $options);
 
-        self::$config = \octoapi\core\com\config\config::init($options);
+        self::$config = \octoapi\core\com\config\config::make($options);
 
     }
     //------------------------------------------------------------------------------------------------------------------
+
     /**
-     * @return array
+     * @param \com\intf\standard|\octoapi\core\com\config\config $config
      */
-    public static function get_config(): array {
+    public static function set_config($config): void {
+        self::$config = $config;
+    }
+    //------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @return \com\intf\standard|\octoapi\core\com\config\config
+     */
+    public static function get_config() {
         return self::$config;
     }
     //------------------------------------------------------------------------------------------------------------------

@@ -8,6 +8,9 @@ namespace octoapi\action\product;
  * @copyright Copyright Liquid Edge Solutions. All rights reserved.
  */
 class delete extends \octoapi\core\com\intf\delete {
+
+    use \octoapi\core\com\tra\action;
+
     //------------------------------------------------------------------------------------------------------------------
     // construct
     //------------------------------------------------------------------------------------------------------------------
